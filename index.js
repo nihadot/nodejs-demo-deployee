@@ -1,7 +1,7 @@
 import express from 'express'
 import http from 'http'
 const app = express()
-const port = 4001
+const port = process.env.PORT || 3000
 
 const server = http.createServer(app)
 import { Server } from 'socket.io'
@@ -22,7 +22,7 @@ io.on('connection', (socket) => {
     })
     socket.on('chat message', (msg) => {
         console.log('message: ' + msg);
-        socket.broadcast.emit('chat message', msg);
+        io.emit('chat message', msg);
     });
     // io.emit('msg');
     // io.on('connection', (socket) => {
